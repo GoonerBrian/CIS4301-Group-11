@@ -2,7 +2,7 @@
 
 ## Connect to UF VPN
 
-Make sure to connect to the University of Florida VPN before proceeding. Connecting to the database will not be possible without connecting to the VPN.
+Make sure to connect to the [University of Florida VPN](https://it.ufl.edu/ict/documentation/network-infrastructure/vpn/) before proceeding. Connecting to the database will not be possible without connecting to the VPN.
 
 ## Create a .env file
 
