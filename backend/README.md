@@ -1,5 +1,9 @@
 # CIS4301-Group-11 - BackEnd
 
+## Connect to UF VPN
+
+Make sure to connect to the University of Florida VPN before proceeding. Connecting to the database will not be possible without connecting to the VPN.
+
 ## Create a .env file
 
 Create a file in the `back-end` directory called `.env`.
