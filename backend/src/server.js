@@ -17,7 +17,7 @@ if (process.platform === 'darwin') {
 }
 const dotenv = require('dotenv');
 const app = express();
-const PORT = 8000;
+const PORT = 5000;
 dotenv.config();
 var cors = require('cors');
 app.use(cors());
@@ -55,7 +55,6 @@ app.get('/sanity-check', (req,res) => {
             const query = `select * from "${process.env.USER_NAME.toUpperCase()}".total_population_all_countries fetch first 1 rows only`;
 
             const result = await connection.execute(query);
-            console.log("Completed request");
             
             try {
                 await connection.close();
