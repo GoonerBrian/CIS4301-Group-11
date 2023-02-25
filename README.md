@@ -33,7 +33,7 @@ to run.
 * Complete steps from **Section 4**
 * Run `git checkout <branch-name>` (i.e., `git checkout this-is-my-branch`)
 
-## Pushing your changes to the repo
+### Pushing your changes to the repo
 If you've made changes locally and you want to commit and push those changes to the repo, do the following:
 * `cd` to the `CIS4301-Group-11` directory (if not already there)
 * Run `git add .` to stage all changed files
@@ -52,6 +52,4 @@ Please see the README.md in the `frontend` folder for instructions on setting up
 ## Setup on Apple Silicon Macs
 
 Please see [this](https://github.com/GoonerBrian/node-oracledb-on-m1-mac) repo for instructions on setting up your Apple Silicon Mac to run this app locally.
-
-## Contributing
 
