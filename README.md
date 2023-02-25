@@ -3,7 +3,7 @@
 ## Initial Steps
 
 - Clone this repo
-- Connect to the University of Florida VPN
+- Connect to the [University of Florida VPN](https://it.ufl.edu/ict/documentation/network-infrastructure/vpn/)
 
 ## Backend Setup
 
