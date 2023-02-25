@@ -24,4 +24,4 @@ Listening to port 5000
 Successfully created connection pool
 ```
 
-You can now navigate to (http://localhost:5000/sanity-check) to verify the sanity-check endpoint is retrieving data from the database.
+You can now navigate to [localhost:5000/sanity-check](http://localhost:5000/sanity-check) to verify the sanity-check endpoint is retrieving data from the database.
