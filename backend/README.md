@@ -4,11 +4,38 @@
 
 Make sure to connect to the [University of Florida VPN](https://it.ufl.edu/ict/documentation/network-infrastructure/vpn/) before proceeding. Connecting to the database will not be possible without connecting to the VPN.
 
+## Create simple Customers table in SQL Developer
+
+This is only required for the `/sanity-check` at the end of the page and can be skipped if you do not want to preform the sanity-check (not recommended).
+
+- Open Oracle SQL Developer and connect to the CISE database
+- Run the following to create the `sanityCheck` table
+
+```
+create table sanityCheck
+(
+    attr_1 varchar2(20),
+    attr_2 varchar2(20),
+    attr_3 varchar2(20)
+);
+```
+
+- You should see a response that says "Table SANITYCHECK created."
+- Run the following to insert data into your new table
+
+```
+insert into sanityCheck values ('attr 1', 'attr 2', 'attr 3');
+```
+
+- You should see a response that says "1 row inserted."
+- Lastly, run `commit;` to save changes to your table.
+
 ## Create a .env file
 
 Create a file in the `back-end` directory called `.env`.
 
 The contents of the `.env` should be the following:
+
 ```
 USER_NAME="Username"
 DB_PASSWORD="Password"
@@ -23,6 +50,7 @@ Open a new terminal and run `cd backend`. Then run `npm install` to install the 
 ## Start Local Server
 
 Still in the `backend` directory, run `npm run start`. Once the server is running, the following lines should appear in the terminal,
+
 ```
 Listening to port 5000
 Successfully created connection pool

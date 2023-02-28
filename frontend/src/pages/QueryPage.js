@@ -12,7 +12,7 @@ const QueryPage = () => {
     useEffect(() => {
         const loadQueryInfo = async () => {
             const response = await axios.get(`http://localhost:5000/${queryId}`);
-            const newQueryInfo = response.data.rows;
+            const newQueryInfo = response.data.rows.at(0).at(0);
             setQueryInfo([newQueryInfo]);
         }
         loadQueryInfo();
@@ -20,7 +20,6 @@ const QueryPage = () => {
 
     // Verifies the queryId matches existing content.
     const query = queries.find(query => query.name === queryId);
-    console.log("Query: " + queryInfo);
 
     // Redirect to Not Found Page if query doesn't exist
     if (!query) {
@@ -30,7 +29,7 @@ const QueryPage = () => {
     return (
         <>
         <h1>{query.title}</h1>
-        <p>This is the query result: {queryInfo} </p>
+        <p>This is the query result: {queryInfo} </p> 
         <p>{query.content}</p>
         </>
     );

@@ -3,8 +3,10 @@ const queries = [
         name: 'sanity-check',
         title: "Sanity Check",
         content: [
-            `This runs the following query as a sanity check,
-            select * from total_population_all_countries fetch first 1 rows only;.`
+            `This runs the following query as a sanity check, select * from "BRIAN.HOBLIN".sanityCheck. 
+            The logic in QueryPage.js is setup to only display the 2nd attribute. You can verify all 
+            data is being returned by inspecting the page, selecting the Network tab, selecting the 
+            most recent sanity-check entry (bottom), and selecting the Response tab.`
         ]
     },
     {

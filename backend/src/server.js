@@ -52,7 +52,7 @@ app.get('/sanity-check', (req,res) => {
 
             oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
 
-            const query = `select * from "${process.env.USER_NAME.toUpperCase()}".total_population_all_countries fetch first 1 rows only`;
+            const query = `select * from "${process.env.USER_NAME.toUpperCase()}".sanityCheck`;
 
             const result = await connection.execute(query);
             
