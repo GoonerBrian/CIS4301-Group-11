@@ -9,7 +9,7 @@ commit;
 create table Product(
     product_id NUMBER,
     product_name VARCHAR2(100),
-    CID NUMBER,
+    CID NOT NULL REFERENCES Country (country_id),
     UName VARCHAR2(100),
     CONSTRAINT product_pk PRIMARY KEY (product_id)
 );
