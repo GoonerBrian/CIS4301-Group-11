@@ -16,16 +16,24 @@ create table Product(
 
 commit;
 
-create table User(
+create table User_Info(
     user_name VARCHAR2(100),
-    queries VARCHAR2(100),
     pass_word VARCHAR2(100),
     CONSTRAINT user_pk PRIMARY KEY (user_name)
 );
 
 commit;
 
-create table Element(
+create table User_Query(
+    user_name NOT NULL REFERENCES User_Info (user_name),
+    query_name VARCHAR2(50) NOT NULL UNIQUE,
+    query_params VARCHAR2(100),
+    CONSTRAINT user_query_pk PRIMARY KEY (user_name, query_name)
+);
+
+commit;
+
+create table Element_Data(
     element_code NUMBER,
     element_name VARCHAR2(100),
     element_unit VARCHAR2(20),
@@ -49,20 +57,3 @@ create table Population(
 );
 
 commit;
-
---create table Collection_Method(
---    product_id NOT NULL REFERENCES Product (product_id),
---    element_code NOT NULL REFERENCES Element (element_code),
---    CONSTRAINT collection_method_pk PRIMARY KEY (product_id, element_code)
---);
---
---commit;
---
---create table Country_Product(
---    country_id NOT NULL REFERENCES Country (country_id),
---    product_id NOT NULL REFERENCES Product (product_id),
---    CONSTRAINT country_product_pk PRIMARY KEY (country_id, product_id)
---);
---
---commit;
-
