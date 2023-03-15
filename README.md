@@ -53,3 +53,37 @@ Please see the README.md in the `frontend` folder for instructions on setting up
 
 Please see [this](https://github.com/GoonerBrian/node-oracledb-on-m1-mac) repo for instructions on setting up your Apple Silicon Mac to run this app locally.
 
+
+
+
+
+
+
+
+
+
+
+git bash download:
+https://git-scm.com/downloads
+
+NVM for Windows:
+https://github.com/coreybutler/nvm-windows/releases
+
+ssh key:
+https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key
+
+VS Code:
+https://code.visualstudio.com/docs/?dv=win
+
+UF VPN:
+https://it.ufl.edu/ict/documentation/network-infrastructure/vpn/anyconnect-installation--configuration-guide/
+https://net-services.ufl.edu/provided-services/vpn/clients/
+
+Oracle Instant Client:
+https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html
+
+Microsoft Visual C++ Redistributable:
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
+
+Resolve error in Frontend on npm install command:
+https://stackoverflow.com/questions/52823393/react-scripts-is-not-recognized-as-an-internal-or-external-command
