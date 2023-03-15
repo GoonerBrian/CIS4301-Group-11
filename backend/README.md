@@ -45,7 +45,7 @@ Assuming you've already connected to your database using Oracle SQL Developer, y
 
 ## Installing Node Packages
 
-Open a new terminal and run `cd backend`. Then run `npm install` to install the required Node packages.
+Open a new terminal and run `cd backend`. Run `nvm use 14.21.2` to ensure you're using the correct version of Node. Then run `npm install` to install the required Node packages.
 
 ## Start Local Server
 
