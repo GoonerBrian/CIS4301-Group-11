@@ -7,7 +7,7 @@ import NavBar from './NavBar';
 import QueryPage from './pages/QueryPage';
 import NotFoundPage from './pages/NotFound';
 import MyProfile from './pages/MyProfile';
-
+import CreatAccountPage from './pages/CreateAccountPage';
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +20,7 @@ function App() {
           <Route path='/my-profile' element={<MyProfile />} />
           <Route path='/queries-page' element={<QueriesPage />} />
           <Route path='/queries-page/:queryId' element={<QueryPage />} />
+          <Route path='/create-account' element={<CreatAccountPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </div>

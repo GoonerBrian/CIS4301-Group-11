@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+// I don't think we need to link to the create account page.
 const NavBar = () => {
     return (
         <nav>
