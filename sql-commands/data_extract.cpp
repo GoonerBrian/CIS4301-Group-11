@@ -19,6 +19,10 @@ int main(){
 {
     string text = "";
     getline (file, text);
+    if(text.find('"') == -1)
+    {
+	continue;
+    }
     line = getValuesForTable(text);
     auto finder = duplicate.find(line);
     if(finder == duplicate.end())
