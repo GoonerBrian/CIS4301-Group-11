@@ -20,5 +20,3 @@ create table pop_data(
     pop_density decimal(20,4),
     constraint pop_data_pk primary key (location_name, time_year)
 );
-
-drop table pop_data
