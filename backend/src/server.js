@@ -77,4 +77,40 @@ app.get('/sanity-check', (req,res) => {
     })
 })
 
+app.get('/total-tuples', (req,res) => {
+    async function fetchTotalTuples() {
+        try{
+            const connection = await oracledb.getConnection();
+
+            oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+
+            const query = `select * from 
+            (select count(*) as tuples_1 from "BRIAN.HOBLIN".crop_data), 
+            (select count(*) as tuples_2 from "BRIAN.HOBLIN".pop_data)`;
+
+            const result = await connection.execute(query);
+            const totalTuples = result['rows'][0][0] + result['rows'][0][1];
+            
+            try {
+                await connection.close();
+            }
+            catch (err) {
+                console.log("Encountered an error closing a connection in the connection pool.");
+            }
+            return totalTuples;
+            
+        } catch (error) {
+            return error;
+        }
+
+    }
+    fetchTotalTuples().then(dbRes => {
+        res.json(dbRes);
+    })
+    .catch(err => {
+        res.send(err);
+    })
+
+})
+
 init_database();
