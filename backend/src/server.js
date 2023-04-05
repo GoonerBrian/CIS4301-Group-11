@@ -89,7 +89,7 @@ app.get('/total-tuples', (req,res) => {
             (select count(*) as tuples_2 from "BRIAN.HOBLIN".pop_data)`;
 
             const result = await connection.execute(query);
-            const totalTuples = result['rows'][0][0] + result['rows'][0][1];
+            //const totalTuples = result['rows'][0][0] + result['rows'][0][1];
             
             try {
                 await connection.close();
@@ -97,7 +97,7 @@ app.get('/total-tuples', (req,res) => {
             catch (err) {
                 console.log("Encountered an error closing a connection in the connection pool.");
             }
-            return totalTuples;
+            return result;
             
         } catch (error) {
             return error;
@@ -105,7 +105,7 @@ app.get('/total-tuples', (req,res) => {
 
     }
     fetchTotalTuples().then(dbRes => {
-        res.json(dbRes);
+        res.send(dbRes);
     })
     .catch(err => {
         res.send(err);
