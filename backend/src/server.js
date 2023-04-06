@@ -113,4 +113,97 @@ app.get('/total-tuples', (req,res) => {
 
 })
 
+app.get('/query1', (req,res) => {
+    async function fetchQuery1() {
+        try{
+            const connection = await oracledb.getConnection();
+            
+            oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+            const year1 = '1989';
+            const year2 = '1994';
+            const itemName = 'Wheat';
+            const element_code = '5510';
+            const country = 'Germany';
+            
+            const query = 
+            `with ranges(years, ecode, Icode) as
+            (SELECT year, element_code, ITEM_CODE FROM "BRIAN.HOBLIN".crop_data WHERE year > ${year1} AND year < ${year2} 
+            AND element_code = ${element_code} AND ITEM_NAME LIKE '%${itemName}%')
+            SELECT cd.area_name, cd.item_name, cd.value, pd.pop_total, cd.year
+            FROM "BRIAN.HOBLIN".crop_data cd, "BRIAN.HOBLIN".pop_data pd
+            WHERE cd.area_name = pd.location_name AND cd.year = pd.year
+            AND cd.AREA_NAME = '${country}'
+            AND cd.year in (SELECT years FROM ranges) AND cd.element_code in (SELECT ecode FROM ranges) 
+            AND cd.ITEM_CODE in (SELECT Icode from ranges)`;
+            
+            const result = await connection.execute(query);
+            
+            
+            try {
+                await connection.close();
+            }
+            catch (err) {
+                console.log("Encountered an error closing a connection in the connection pool.");
+            }
+            return result;
+            
+        } catch (error) {
+            return error;
+        }
+
+    }
+    fetchQuery1().then(dbRes => {
+        res.send(dbRes);
+    })
+    .catch(err => {
+        res.send(err);
+    })
+
+})
+
+app.get('/query2', (req,res) => {
+    async function fetchQuery2() {
+        try{
+            const connection = await oracledb.getConnection();
+            
+            oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+            const year1 = '1989';
+            const year2 = '1994';
+            const itemName = 'Wheat';
+            const element_code = '5510';
+            const query = `with sums(cname, totals) as
+            (select area_name, SUM(VALUE)
+            FROM "BRIAN.HOBLIN".crop_data
+            WHERE year > ${year1} AND year < ${year2} AND ITEM_NAME LIKE '%${itemName}%' AND VALUE IS NOT NULL AND element_code = ${element_code}
+            GROUP BY area_name
+            ORDER BY SUM(VALUE) ASC
+            FETCH FIRST 5 ROWS ONLY)
+            SELECT area_name, value, year
+            FROM "BRIAN.HOBLIN".crop_data cd
+            WHERE cd.year > ${year1} AND cd.year < ${year2} AND ITEM_NAME LIKE '%${itemName}%'
+            AND cd.element_code = ${element_code}
+            AND cd.area_name in (select cname from sums)`;
+            const result = await connection.execute(query);
+            try {
+                await connection.close();
+            }
+            catch (err) {
+                console.log("Encountered an error closing a connection in the connection pool.");
+            }
+            return result;
+            
+        } catch (error) {
+            return error;
+        }
+
+    }
+    fetchQuery2().then(dbRes => {
+        res.send(dbRes);
+    })
+    .catch(err => {
+        res.send(err);
+    })
+
+})
+
 init_database();
