@@ -89,7 +89,6 @@ app.get('/total-tuples', (req,res) => {
             (select count(*) as tuples_2 from "BRIAN.HOBLIN".pop_data)`;
 
             const result = await connection.execute(query);
-            //const totalTuples = result['rows'][0][0] + result['rows'][0][1];
             
             try {
                 await connection.close();
