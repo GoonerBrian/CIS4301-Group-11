@@ -205,4 +205,81 @@ app.get('/query2', (req,res) => {
 
 })
 
+app.get('/query3', (req,res) => {
+    async function fetchQuery3() {
+        try{
+            const connection = await oracledb.getConnection();
+            
+            oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+            const year1 = '1990';
+            const year2 = '1999';
+            const area1 = 'United States of America';
+            const area2 = 'Europe';
+            const itemName = 'Apples';
+
+            const query = 
+            `select a1.a1yr "Area 1 Year",
+                    a1.area1 "Area 1",
+                    a1.ratio1 "Area 1: tonnes/hectares",  
+                    a2.a2yr "Area 2 Year",
+                    a2.area2 "Area 2",
+                    a2.ratio2 "Area 2: tonnes/hectares"
+             from (
+                 select c1.area_name area1, c1.year a1yr, c1.value hectares, value_2 tonnes, c1.value/value_2 ratio1
+                 from crop_data c1
+                     inner join
+                         (select c2.year c2_yr, c2.area_name c2_country, c2.item_name, c2.unit unit_2, c2.value value_2
+                         from crop_data c2
+                         where c2.year between ${year1} and ${year2}
+                         and c2.unit = 'ha'
+                         and c2.item_name = '${itemName}'
+                         and c2.area_name = '${area1}')
+                     on c1.year = c2_yr and c1.area_name = c2_country
+                 where c1.year between ${year1} and ${year2}
+                 and c1.unit = 'tonnes'
+                 and c1.item_name = '${itemName}'
+                 and c1.area_name = '${area1}'
+             ) a1
+             inner join (
+                 select c1.area_name area2, c1.year a2yr, c1.value hectares, value_2 tonnes, c1.value/value_2 ratio2
+                 from crop_data c1
+                     inner join
+                         (select c2.year c2_yr, c2.area_name c2_country, c2.item_name, c2.unit unit_2, c2.value value_2
+                         from crop_data c2
+                         where c2.year between ${year1} and ${year2}
+                         and c2.unit = 'ha'
+                         and c2.item_name = '${itemName}'
+                         and c2.area_name = '${area2}')
+                     on c1.year = c2_yr and c1.area_name = c2_country
+                 where c1.year between ${year1} and ${year2}
+                 and c1.unit = 'tonnes'
+                 and c1.item_name = '${itemName}'
+                 and c1.area_name = '${area2}'
+             ) a2
+             on a1.a1yr = a2.a2yr`;
+
+            const result = await connection.execute(query);
+
+            try {
+                await connection.close();
+            }
+            catch (err) {
+                console.log("Encountered an error closing a connection in the connection pool.");
+            }
+            return result;
+            
+        } catch (error) {
+            return error;
+        }
+
+    }
+    fetchQuery3().then(dbRes => {
+        res.send(dbRes);
+    })
+    .catch(err => {
+        res.send(err);
+    })
+
+})
+
 init_database();
