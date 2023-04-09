@@ -282,6 +282,61 @@ app.get('/query3', (req,res) => {
 
 })
 
+app.get('/query4', (req,res) => {
+    async function fetchQuery4() {
+        try{
+            const connection = await oracledb.getConnection();
+            
+            oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+            const areaNameq4 = 'United States of America';
+            const itemNameq4 = 'Apples';
+
+            const query = 
+            `WITH bestYear as(
+            SELECT year
+            FROM "BRIAN.HOBLIN".crop_data
+            WHERE area_name = '${areaNameq4}' 
+                    AND item_name = '${itemNameq4}' 
+                    AND unit = 'tonnes'
+                    AND value = (SELECT max(value)
+                                FROM "BRIAN.HOBLIN".crop_data
+                                WHERE area_name = '${areaNameq4}' 
+                                    AND item_name = '${itemNameq4}'
+                                    AND unit = 'tonnes'
+                                )
+            )
+            SELECT area_name, item_name,CD.year, value 
+            FROM "BRIAN.HOBLIN".crop_data CD, bestYear
+            WHERE CD.year <= bestYear.year+5
+                    AND CD.year >= bestYear.year-5
+                    AND area_name = '${areaNameq4}' 
+                    AND item_name = '${itemNameq4}' 
+                    AND unit = 'tonnes'`;
+
+            const result = await connection.execute(query);
+
+            try {
+                await connection.close();
+            }
+            catch (err) {
+                console.log("Encountered an error closing a connection in the connection pool.");
+            }
+            return result;
+            
+        } catch (error) {
+            return error;
+        }
+
+    }
+    fetchQuery4().then(dbRes => {
+        res.send(dbRes);
+    })
+    .catch(err => {
+        res.send(err);
+    })
+
+})
+
 app.get('/query5', (req, res) => {
     async function fetchQuery5() {
       try {
