@@ -282,4 +282,75 @@ app.get('/query3', (req,res) => {
 
 })
 
+app.get('/query5', (req, res) => {
+    async function fetchQuery5() {
+      try {
+        const connection = await oracledb.getConnection();
+  
+        oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+  
+        // Add the SQL query as a variable
+        const query = `
+        WITH 
+        lowest_yield AS (
+          SELECT area_name, AVG(VALUE) AS avg_yield
+          FROM "BRIAN.HOBLIN".crop_data
+          WHERE ITEM_NAME LIKE '%Wheat%' AND element_code = 5419
+          GROUP BY area_name
+          ORDER BY avg_yield ASC
+          FETCH FIRST 3 ROWS ONLY
+        ),
+        highest_yield AS (
+          SELECT area_name, AVG(VALUE) AS avg_yield
+          FROM "BRIAN.HOBLIN".crop_data
+          WHERE ITEM_NAME LIKE '%Wheat%' AND element_code = 5419
+          GROUP BY area_name
+          ORDER BY avg_yield DESC
+          FETCH FIRST 3 ROWS ONLY
+        ),
+        yield_data AS (
+          SELECT area_name, avg_yield
+          FROM lowest_yield
+          UNION ALL
+          SELECT area_name, avg_yield
+          FROM highest_yield
+        ),
+        production_data AS (
+          SELECT area_name, AVG(VALUE) AS avg_production
+          FROM "BRIAN.HOBLIN".crop_data
+          WHERE ITEM_NAME LIKE '%Wheat%' AND element_code = 5510
+          GROUP BY area_name
+        )
+        
+        SELECT yd.area_name, yd.avg_yield, pd.avg_production, (yd.avg_yield / pd.avg_production) AS yield_area_vs_production_ratio
+        FROM yield_data yd
+        JOIN production_data pd ON yd.area_name = pd.area_name
+        ORDER BY yd.avg_yield
+        `;
+  
+        const result = await connection.execute(query);
+  
+        try {
+          await connection.close();
+        } catch (err) {
+          console.log(
+            "Encountered an error closing a connection in the connection pool."
+          );
+        }
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    fetchQuery5()
+      .then((dbRes) => {
+        res.send(dbRes);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
+  
+  
+
 init_database();
