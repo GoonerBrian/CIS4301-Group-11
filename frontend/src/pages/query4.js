@@ -4,7 +4,7 @@ import NotFoundPage from './NotFound';
 import queries from './query-content';
 import axios from 'axios';
 
-const QueryPage = () => {
+const Query4 = () => {
     const [queryInfo, setQueryInfo] = useState([]);
     // Gets whatever is following http://localhost:3000/queries-page/
     const { queryId } = useParams();
@@ -35,4 +35,4 @@ const QueryPage = () => {
     );
 }
 
-export default QueryPage;
+export default Query4;
