@@ -19,7 +19,7 @@ const HomePage = () => {
 
     return (
         <>
-        <h1>Welcome to the homepage for Group 11 (This will the the "About Us" area too)</h1>
+        <h1>Welcome to the homepage for Group 11 (This will be the the "About Us" area too)</h1>
         <p>Click on the Queries page if you would like to look up data about countries, their products, and their populations!
             Click on the My Profile page to see the quieris you have made!
             Click the Tuples button to see how many tuples are in the database!
