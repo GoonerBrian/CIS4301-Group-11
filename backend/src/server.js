@@ -226,10 +226,10 @@ app.get('/query3', (req,res) => {
                     a2.ratio2 "Area 2: tonnes/hectares"
              from (
                  select c1.area_name area1, c1.year a1yr, c1.value hectares, value_2 tonnes, c1.value/value_2 ratio1
-                 from crop_data c1
+                 from "BRIAN.HOBLIN".crop_data c1
                      inner join
                          (select c2.year c2_yr, c2.area_name c2_country, c2.item_name, c2.unit unit_2, c2.value value_2
-                         from crop_data c2
+                         from "BRIAN.HOBLIN".crop_data c2
                          where c2.year between ${year1} and ${year2}
                          and c2.unit = 'ha'
                          and c2.item_name = '${itemName}'
@@ -242,10 +242,10 @@ app.get('/query3', (req,res) => {
              ) a1
              inner join (
                  select c1.area_name area2, c1.year a2yr, c1.value hectares, value_2 tonnes, c1.value/value_2 ratio2
-                 from crop_data c1
+                 from "BRIAN.HOBLIN".crop_data c1
                      inner join
                          (select c2.year c2_yr, c2.area_name c2_country, c2.item_name, c2.unit unit_2, c2.value value_2
-                         from crop_data c2
+                         from "BRIAN.HOBLIN".crop_data c2
                          where c2.year between ${year1} and ${year2}
                          and c2.unit = 'ha'
                          and c2.item_name = '${itemName}'
