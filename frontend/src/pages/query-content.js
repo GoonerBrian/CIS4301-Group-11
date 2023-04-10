@@ -4,7 +4,7 @@ const queries = [
         title: "Sanity Check",
         content: [
             `This runs the following query as a sanity check, select * from "BRIAN.HOBLIN".sanityCheck. 
-            The logic in SanityCheck.js is setup to only display the 2nd attribute. You can verify all 
+            The logic in QueryPage.js is setup to only display the 2nd attribute. You can verify all 
             data is being returned by inspecting the page, selecting the Network tab, selecting the 
             most recent sanity-check entry (bottom), and selecting the Response tab.`
         ]

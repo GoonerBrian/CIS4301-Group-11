@@ -5,7 +5,7 @@ const QueriesList = ({ queries }) => {
         // The <></> is a formatting trick to allow for displaying more than one top-level element with a single component
         // queries.map is where we iterate over all the queries we have and store individual queries in the query variable.
         // The <Link> turns the query title and content into a clickable link.
-            // key resolves the console warning unique key and is due to the map function being used. An alternative approach can be found in SanityCheck.js.
+            // key resolves the console warning unique key and is due to the map function being used. An alternative approach can be found in QueryPage.js.
             // className is a placeholder for later styling
             // to is where the link is sending the user
         // The <h3> displays the query's title
