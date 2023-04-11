@@ -118,11 +118,16 @@ app.get('/query1', (req,res) => {
             const connection = await oracledb.getConnection();
             
             oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
-            const year1 = '1989';
-            const year2 = '1994';
-            const itemName = 'Wheat';
-            const element_code = '5510';
-            const country = 'Germany';
+            //const year1 = '1989';
+            //const year2 = '1994';
+            //const itemName = 'Wheat';
+            //const element_code = '5510';
+            //const country = 'Germany';
+            const year1 = req.body.year1;
+            const year2 = req.body.year2;
+            const itemName = req.body.itemName;
+            const element_code = req.body.eCode;
+            const country = req.body.country;
             
             const query = 
             `with ranges(years, ecode, Icode) as
@@ -166,17 +171,26 @@ app.get('/query2', (req,res) => {
             const connection = await oracledb.getConnection();
             
             oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
-            const year1 = '1989';
-            const year2 = '1994';
-            const itemName = 'Wheat';
-            const element_code = '5510';
+            //const year1 = '1989';
+            //const year2 = '1994';
+            //const itemName = 'Wheat';
+            //const element_code = '5510';
+            //console.log(req.body);
+            const year1 = req.body.year1;
+            const year2 = req.body.year2;
+            const itemName = req.body.itemName;
+            const element_code = req.body.eCode;
+            
             const query = `with sums(cname, totals) as
             (select area_name, SUM(VALUE)
             FROM "BRIAN.HOBLIN".crop_data
             WHERE year > ${year1} AND year < ${year2} AND ITEM_NAME LIKE '%${itemName}%' AND VALUE IS NOT NULL AND element_code = ${element_code}
+            AND area_name <> 'World' AND area_name NOT LIKE '%Europe%' AND area_name NOT LIKE '%Africa%'
+            AND area_name NOT LIKE '%Oceania%' AND area_name NOT LIKE '%Northern America%' AND area_name NOT LIKE '%South America%'
+            AND area_name NOT LIKE '%Asia%' AND area_name NOT LIKE '%Americas%' AND area_name NOT LIKE '%mainland%'
             GROUP BY area_name
-            ORDER BY SUM(VALUE) ASC
-            FETCH FIRST 5 ROWS ONLY)
+            ORDER BY SUM(VALUE) DESC
+            FETCH FIRST 3 ROWS ONLY)
             SELECT area_name, value, year
             FROM "BRIAN.HOBLIN".crop_data cd
             WHERE cd.year > ${year1} AND cd.year < ${year2} AND ITEM_NAME LIKE '%${itemName}%'
