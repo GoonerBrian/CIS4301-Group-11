@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Plot from 'react-plotly.js';
 
 const Query3 = () => {
-    const [queryInfo, setQueryInfo] = useState([]);
     const [cropAreaNames, setCropAreaNames] = useState([]);
     const [cropItemNames, setCropItemNames] = useState([]);
     const [cropYears, setCropYears] = useState([]);
+    const [area1Values, setArea1Values] = useState([]);
+    const [area2Values, setArea2Values] = useState([]);
     const [year1, setYear1] = useState("");
     const [year2, setYear2] = useState("");
     const [area1, setArea1] = useState("");
@@ -46,8 +48,16 @@ const Query3 = () => {
                 year2,
                 itemName
             }});
-        const newQueryInfo = response.data.rows.at(0).at(1);
-        setQueryInfo([newQueryInfo]);
+
+        const area1Vals = response.data.rows.map(row => {
+            return row.at(2);
+        });
+        setArea1Values(area1Vals);
+
+        const area2Vals = response.data.rows.map(row => {
+            return row.at(2);
+        });
+        setArea2Values(area2Vals);
     }
 
     return (
@@ -122,7 +132,26 @@ const Query3 = () => {
             <br></br>
             <button onClick={runQuery}>Run Query</button>
         </div>
-        <p>This is the query result (Query 3): {queryInfo} </p>
+        <br></br>
+        <Plot 
+            data={[
+                {
+                    x: cropYears,
+                    y: area1Values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    marker: {color: 'orange'}
+                },
+                {
+                    x: cropYears,
+                    y: area2Values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    marker: {color: 'blue'}
+                }
+            ]}
+            layout={ {width: 640, height: 480, title: 'Test Table'} }
+        />
         </>
     );
 }
