@@ -11,9 +11,6 @@ const NavBar = () => {
                     <Link to="/login">Login</Link>
                 </li>
                 <li>
-                    <Link to="/my-profile">My Profile</Link>
-                </li>
-                <li>
                     <Link to="/queries-page">Queries Page</Link>
                 </li>
             </ul>
