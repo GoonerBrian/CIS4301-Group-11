@@ -27,7 +27,7 @@ const Query3 = () => {
     return (
         <>
         <div id="query-input-form">
-            <h3>Test</h3>
+            <h3>Enter your query parameters</h3>
             <label>
                 First Area Name: 
                 <input
