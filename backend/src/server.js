@@ -225,19 +225,19 @@ app.get('/query3', (req,res) => {
             const connection = await oracledb.getConnection();
             
             oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
-            const year1 = '1990';
-            const year2 = '1999';
-            const area1 = 'United States of America';
-            const area2 = 'Europe';
-            const itemName = 'Apples';
+            const area1 = req.query.area1;
+            const area2 = req.query.area2;
+            const year1 = req.query.year1;
+            const year2 = req.query.year2;
+            const itemName = req.query.itemName;
 
             const query = 
-            `select a1.a1yr "Area 1 Year",
-                    a1.area1 "Area 1",
-                    a1.ratio1 "Area 1: tonnes/hectares",  
-                    a2.a2yr "Area 2 Year",
-                    a2.area2 "Area 2",
-                    a2.ratio2 "Area 2: tonnes/hectares"
+            `select a1.a1yr year1,
+                    a1.area1 area1,
+                    a1.ratio1 area1_ratio,  
+                    a2.a2yr year2,
+                    a2.area2 area2,
+                    a2.ratio2 area2_ratio
              from (
                  select c1.area_name area1, c1.year a1yr, c1.value hectares, value_2 tonnes, c1.value/value_2 ratio1
                  from "BRIAN.HOBLIN".crop_data c1
