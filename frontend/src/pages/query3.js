@@ -15,6 +15,8 @@ const Query3 = () => {
     const [area2, setArea2] = useState("");
     const [itemName, setItemName] = useState("");
     const [showGrpah, setShowGraph] = useState(false);
+    const [minValue, setMinValue] = useState(0);
+    const [maxValue, setMaxValue] = useState(50);
     const queryId = 'query3';
 
     useEffect(() => {
@@ -51,20 +53,33 @@ const Query3 = () => {
                 itemName
             }});
 
+        // Stores all of Area 1's values in an array
         const area1Vals = response.data.rows.map(row => {
             return row.at(2);
         });
         setArea1Values(area1Vals);
 
+        // Stores all of Area 2's values in an array
         const area2Vals = response.data.rows.map(row => {
             return row.at(5);
         });
         setArea2Values(area2Vals);
 
+        // Stores all the years relevant to the query in an array
         const queryYrs = response.data.rows.map(row => {
             return row.at(0);
         })
         setQueryYears(queryYrs);
+
+        // Find the lowest value
+        const area1Min = Math.min(...area1Values);
+        const area2Min = Math.min(...area2Values);
+        area1Min < area2Min ? setMinValue(area1Min) : setMinValue(area2Min);
+
+        //Find the highest value
+        const area1Max = Math.max(...area1Values);
+        const area2Max = Math.max(...area2Values);
+        area1Max > area2Max ? setMaxValue(area1Max) : setMaxValue(area2Max);
 
         setShowGraph(true);
     }
@@ -148,9 +163,7 @@ const Query3 = () => {
                     data={[
                         {
                             x: queryYears,
-                            xaxis: "Years",
                             y: area1Values,
-                            yaxis: "tonnes/hectares",
                             name: area1,
                             type: 'scatter',
                             mode: 'lines+markers',
@@ -158,9 +171,7 @@ const Query3 = () => {
                         },
                         {
                             x: queryYears,
-                            xaxis: "Years",
                             y: area2Values,
-                            yaxis: "tonnes/hectares",
                             name: area2,
                             type: 'scatter',
                             mode: 'lines+markers',
@@ -170,6 +181,8 @@ const Query3 = () => {
                     layout={ {
                                 width: 960, 
                                 height: 720, 
+                                xaxis: {range: [queryYears[0], queryYears[queryYears.length - 1]], title: "Years"},
+                                yaxis: {range: [minValue, maxValue], title: "tonnes/hectares"},
                                 title: `The tonnes/hectares of ${itemName} for ${area1} and ${area2} between ${queryYears[0]} and ${queryYears[queryYears.length - 1]}`
                             } }
                 />
