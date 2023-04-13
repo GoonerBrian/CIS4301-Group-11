@@ -420,6 +420,105 @@ app.get('/query5', (req, res) => {
       });
   });
   
+  // Helper Queries
+
+  app.get('/crop-area-names', (req, res) => {
+    async function cropAreaNames() {
+      try {
+        const connection = await oracledb.getConnection();
   
+        oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+  
+        // Add the SQL query as a variable
+        const query = `select distinct(area_name) from "BRIAN.HOBLIN".crop_data order by area_name`;
+  
+        const result = await connection.execute(query);
+  
+        try {
+          await connection.close();
+        } catch (err) {
+          console.log(
+            "Encountered an error closing a connection in the connection pool."
+          );
+        }
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    cropAreaNames()
+      .then((dbRes) => {
+        res.send(dbRes);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
+  
+  app.get('/crop-years', (req, res) => {
+    async function cropAreaNames() {
+      try {
+        const connection = await oracledb.getConnection();
+  
+        oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+  
+        // Add the SQL query as a variable
+        const query = `select distinct(year) from "BRIAN.HOBLIN".crop_data order by year`;
+  
+        const result = await connection.execute(query);
+  
+        try {
+          await connection.close();
+        } catch (err) {
+          console.log(
+            "Encountered an error closing a connection in the connection pool."
+          );
+        }
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    cropAreaNames()
+      .then((dbRes) => {
+        res.send(dbRes);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
+
+  app.get('/crop-items', (req, res) => {
+    async function cropItems() {
+      try {
+        const connection = await oracledb.getConnection();
+  
+        oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+  
+        // Add the SQL query as a variable
+        const query = `select distinct(item_name) from "BRIAN.HOBLIN".crop_data order by item_name`;
+  
+        const result = await connection.execute(query);
+  
+        try {
+          await connection.close();
+        } catch (err) {
+          console.log(
+            "Encountered an error closing a connection in the connection pool."
+          );
+        }
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    cropItems()
+      .then((dbRes) => {
+        res.send(dbRes);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
 
 init_database();
