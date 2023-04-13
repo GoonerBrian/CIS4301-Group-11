@@ -14,6 +14,7 @@ const Query3 = () => {
     const [area1, setArea1] = useState("");
     const [area2, setArea2] = useState("");
     const [itemName, setItemName] = useState("");
+    const [showGrpah, setShowGraph] = useState(false);
     const queryId = 'query3';
 
     useEffect(() => {
@@ -64,6 +65,8 @@ const Query3 = () => {
             return row.at(0);
         })
         setQueryYears(queryYrs);
+
+        setShowGraph(true);
     }
 
     return (
@@ -139,35 +142,39 @@ const Query3 = () => {
             <button onClick={runQuery}>Run Query</button>
         </div>
         <br></br>
-        <Plot 
-            data={[
-                {
-                    x: queryYears,
-                    xaxis: "Years",
-                    y: area1Values,
-                    yaxis: "tonnes/hectares",
-                    name: area1,
-                    type: 'scatter',
-                    mode: 'lines+markers',
-                    marker: {color: 'orange'}
-                },
-                {
-                    x: queryYears,
-                    xaxis: "Years",
-                    y: area2Values,
-                    yaxis: "tonnes/hectares",
-                    name: area2,
-                    type: 'scatter',
-                    mode: 'lines+markers',
-                    marker: {color: 'blue'}
-                }
-            ]}
-            layout={ {
-                        width: 960, 
-                        height: 720, 
-                        title: `The tonnes/hectares of ${itemName} for ${area1} and ${area2} between ${queryYears[0]} and ${queryYears[queryYears.length - 1]}`
-                    } }
-        />
+        <div>
+            {showGrpah ? 
+                <Plot 
+                    data={[
+                        {
+                            x: queryYears,
+                            xaxis: "Years",
+                            y: area1Values,
+                            yaxis: "tonnes/hectares",
+                            name: area1,
+                            type: 'scatter',
+                            mode: 'lines+markers',
+                            marker: {color: 'orange'}
+                        },
+                        {
+                            x: queryYears,
+                            xaxis: "Years",
+                            y: area2Values,
+                            yaxis: "tonnes/hectares",
+                            name: area2,
+                            type: 'scatter',
+                            mode: 'lines+markers',
+                            marker: {color: 'blue'}
+                        }
+                    ]}
+                    layout={ {
+                                width: 960, 
+                                height: 720, 
+                                title: `The tonnes/hectares of ${itemName} for ${area1} and ${area2} between ${queryYears[0]} and ${queryYears[queryYears.length - 1]}`
+                            } }
+                />
+            : <br></br>}
+        </div>
         </>
     );
 }
