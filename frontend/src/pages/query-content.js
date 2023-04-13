@@ -25,9 +25,10 @@ const queries = [
     },
     {
         name: 'query3', // Must be the name of the endpoint in the backend
-        title: "This is a placeholder for query 3",
+        title: "The crop yield per hectare for 2 countries over a time interval",
         content: [
-            `Update this once the frontend work has been completed.`
+            `The user can select 2 countries and a crop to see how their respective
+            yield per hectare has changed over time.`
         ]
     },
     {
