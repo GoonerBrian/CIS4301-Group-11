@@ -123,11 +123,11 @@ app.get('/query1', (req,res) => {
             //const itemName = 'Wheat';
             //const element_code = '5510';
             //const country = 'Germany';
-            const year1 = req.body.year1;
-            const year2 = req.body.year2;
-            const itemName = req.body.itemName;
-            const element_code = req.body.eCode;
-            const country = req.body.country;
+            const year1 = req.query.year1;
+            const year2 = req.query.year2;
+            const itemName = req.query.itemName;
+            const element_code = req.query.eCode;
+            const country = req.query.country;
             
             const query = 
             `with ranges(years, ecode, Icode) as
