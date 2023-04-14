@@ -184,16 +184,17 @@ app.get('/query2', (req,res) => {
             const query = `with sums(cname, totals) as
             (select area_name, SUM(VALUE)
             FROM "BRIAN.HOBLIN".crop_data
-            WHERE year > ${year1} AND year < ${year2} AND ITEM_NAME LIKE '%${itemName}%' AND VALUE IS NOT NULL AND element_code = ${element_code}
+            WHERE year between ${year1} AND ${year2} AND ITEM_NAME LIKE '%${itemName}%' AND VALUE IS NOT NULL AND element_code = ${element_code}
             AND area_name <> 'World' AND area_name NOT LIKE '%Europe%' AND area_name NOT LIKE '%Africa%'
             AND area_name NOT LIKE '%Oceania%' AND area_name NOT LIKE '%Northern America%' AND area_name NOT LIKE '%South America%'
             AND area_name NOT LIKE '%Asia%' AND area_name NOT LIKE '%Americas%' AND area_name NOT LIKE '%mainland%'
+            AND area_name NOT LIKE '%Food%'
             GROUP BY area_name
             ORDER BY SUM(VALUE) DESC
             FETCH FIRST 3 ROWS ONLY)
             SELECT area_name, value, year
             FROM "BRIAN.HOBLIN".crop_data cd
-            WHERE cd.year > ${year1} AND cd.year < ${year2} AND ITEM_NAME LIKE '%${itemName}%'
+            WHERE cd.year between ${year1} AND ${year2} AND ITEM_NAME LIKE '%${itemName}%'
             AND cd.element_code = ${element_code}
             AND cd.area_name in (select cname from sums)`;
             const result = await connection.execute(query);
@@ -497,6 +498,39 @@ app.get('/query5', (req, res) => {
   
         // Add the SQL query as a variable
         const query = `select distinct(item_name) from "BRIAN.HOBLIN".crop_data order by item_name`;
+  
+        const result = await connection.execute(query);
+  
+        try {
+          await connection.close();
+        } catch (err) {
+          console.log(
+            "Encountered an error closing a connection in the connection pool."
+          );
+        }
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    cropItems()
+      .then((dbRes) => {
+        res.send(dbRes);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
+
+  app.get('/crop-ecode', (req, res) => {
+    async function cropItems() {
+      try {
+        const connection = await oracledb.getConnection();
+  
+        oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+  
+        // Add the SQL query as a variable
+        const query = `select distinct(element_code) from "BRIAN.HOBLIN".crop_data order by element_code`;
   
         const result = await connection.execute(query);
   
