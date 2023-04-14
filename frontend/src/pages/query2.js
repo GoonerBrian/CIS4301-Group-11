@@ -71,7 +71,11 @@ const Query2 = () => {
                 areaVals[i] = [];
                 years[i] = [];
             }
-            if(response.data.rows.length === 0)
+            if(typeof response.data.rows === 'undefined')
+            {
+                setShowGraph(false);
+            }
+            else if(response.data.rows.length === 0)
             {
                 setShowGraph(false);
             }
@@ -93,7 +97,7 @@ const Query2 = () => {
                     }
                     else
                     {
-                        console.log(arrIndex);
+                        //console.log(arrIndex);
                         if(arrIndex === 0)
                         {
                             
