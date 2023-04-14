@@ -7,7 +7,7 @@ const Query2 = () => {
     const [cropItemNames, setCropItemNames] = useState([]);
     const [cropYears, setCropYears] = useState([]);
     const [cropECode, setCropECode] = useState([]);
-    const [queryYears, setQueryYears] = useState([]);
+    //const [queryYears, setQueryYears] = useState([]);
     const [year1, setYear1] = useState("");
     const [year2, setYear2] = useState("");
     const [itemName, setItemName] = useState("");
@@ -38,16 +38,17 @@ const Query2 = () => {
     }, []);
 
     const runQuery = async () => {
+        
         const response = await axios.get(
+            
             `http://localhost:5000/${queryId}`,
-            {params:{
+            {params: {
                 year1,
                 year2,
                 itemName,
                 eCode
             }});
-            console.log(response);
-            //setQueryYears(response.data.rows.at(0).at(2));
+            
             //alert(queryYears);
     }
     
@@ -69,6 +70,7 @@ const Query2 = () => {
                 </select>
                 <br></br>
             </label>
+
             <br></br>
             <label>
                 Ending Year:
@@ -82,6 +84,7 @@ const Query2 = () => {
                 </select>
                 <br></br>
             </label>
+
             <br></br>
             <label>
                 Crop Name:
@@ -95,6 +98,7 @@ const Query2 = () => {
                 </select>
                 <br></br>
             </label>
+            
             <br></br>
             <label>
                 Element Code:
@@ -108,6 +112,8 @@ const Query2 = () => {
                 </select>
                 <br></br>
             </label>
+            
+            
             <br></br>
             <button onClick={runQuery}>Run Query</button>
         </div>

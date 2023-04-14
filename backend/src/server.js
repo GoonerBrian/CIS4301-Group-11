@@ -171,15 +171,16 @@ app.get('/query2', (req,res) => {
             const connection = await oracledb.getConnection();
             
             oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
-            //const year1 = '1989';
-            //const year2 = '1994';
-            //const itemName = 'Wheat';
+            //const year1 = '2000';
+            //const year2 = '2003';
+            //const itemName = 'Garlic';
             //const element_code = '5510';
-            //console.log(req.body);
-            const year1 = req.body.year1;
-            const year2 = req.body.year2;
-            const itemName = req.body.itemName;
-            const element_code = req.body.eCode;
+            console.log(req.query);
+            const year1 = req.query.year1.toString();
+            const year2 = req.query.year2.toString();
+            const itemName = req.query.itemName.toString();
+            const element_code = req.query.eCode.toString();
+           
             
             const query = `with sums(cname, totals) as
             (select area_name, SUM(VALUE)
@@ -194,7 +195,7 @@ app.get('/query2', (req,res) => {
             FETCH FIRST 3 ROWS ONLY)
             SELECT area_name, value, year
             FROM "BRIAN.HOBLIN".crop_data cd
-            WHERE cd.year between ${year1} AND ${year2} AND ITEM_NAME LIKE '%${itemName}%'
+            WHERE cd.year between ${year1} AND ${year2} AND cd.ITEM_NAME LIKE '%${itemName}%'
             AND cd.element_code = ${element_code}
             AND cd.area_name in (select cname from sums)`;
             const result = await connection.execute(query);
