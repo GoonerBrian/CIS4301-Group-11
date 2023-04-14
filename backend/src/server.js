@@ -343,14 +343,15 @@ app.get('/query5', (req, res) => {
         const connection = await oracledb.getConnection();
   
         oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
-  
+        const itemName = req.query.itemName;
+        
         // Add the SQL query as a variable
         const query = `
         WITH 
         lowest_yield AS (
           SELECT area_name, AVG(VALUE) AS avg_yield
           FROM "BRIAN.HOBLIN".crop_data
-          WHERE ITEM_NAME LIKE '%Wheat%' AND element_code = 5419
+          WHERE ITEM_NAME LIKE '${itemName}' AND element_code = 5419
           GROUP BY area_name
           ORDER BY avg_yield ASC
           FETCH FIRST 3 ROWS ONLY
@@ -358,7 +359,7 @@ app.get('/query5', (req, res) => {
         highest_yield AS (
           SELECT area_name, AVG(VALUE) AS avg_yield
           FROM "BRIAN.HOBLIN".crop_data
-          WHERE ITEM_NAME LIKE '%Wheat%' AND element_code = 5419
+          WHERE ITEM_NAME LIKE '${itemName}' AND element_code = 5419
           GROUP BY area_name
           ORDER BY avg_yield DESC
           FETCH FIRST 3 ROWS ONLY
@@ -373,7 +374,7 @@ app.get('/query5', (req, res) => {
         production_data AS (
           SELECT area_name, AVG(VALUE) AS avg_production
           FROM "BRIAN.HOBLIN".crop_data
-          WHERE ITEM_NAME LIKE '%Wheat%' AND element_code = 5510
+          WHERE ITEM_NAME LIKE '${itemName}' AND element_code = 5510
           GROUP BY area_name
         )
         
