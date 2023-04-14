@@ -18,9 +18,10 @@ const queries = [
     },
     {
         name: 'query2', // Must be the name of the endpoint in the backend
-        title: "This is a placeholder for query 2",
+        title: "The 3 countries that produce the most yield type, for a crop, over a time interval",
         content: [
-            `Update this once the frontend work has been completed.`
+            `The user can select an item type and a collection method to view the top three producing countries for that item, 
+            and see how they changed over a selected time interval.`
         ]
     },
     {
