@@ -288,8 +288,8 @@ app.get('/query4', (req,res) => {
             const connection = await oracledb.getConnection();
             
             oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
-            const areaNameq4 = 'United States of America';
-            const itemNameq4 = 'Apples';
+            const areaNameq4 = req.query.area;
+            const itemNameq4 = req.query.itemName;
 
             const query = 
             `WITH bestYear as(
@@ -305,7 +305,7 @@ app.get('/query4', (req,res) => {
                                     AND unit = 'tonnes'
                                 )
             )
-            SELECT area_name, item_name,CD.year, value 
+            SELECT area_name, item_name, CD.year, value 
             FROM "BRIAN.HOBLIN".crop_data CD, bestYear
             WHERE CD.year <= bestYear.year+5
                     AND CD.year >= bestYear.year-5
