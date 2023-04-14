@@ -175,7 +175,7 @@ app.get('/query2', (req,res) => {
             //const year2 = '2003';
             //const itemName = 'Garlic';
             //const element_code = '5510';
-            console.log(req.query);
+            
             const year1 = req.query.year1.toString();
             const year2 = req.query.year2.toString();
             const itemName = req.query.itemName.toString();
