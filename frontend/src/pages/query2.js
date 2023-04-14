@@ -77,7 +77,7 @@ const Query2 = () => {
             }
             else
             {
-                console.log(response.data.rows.length);
+                
                 setArea1(response.data.rows.at(0).at(0));
                 areaVals[arrIndex].push(response.data.rows.at(0).at(1));
                 years[arrIndex].push(response.data.rows.at(0).at(2));
@@ -134,11 +134,7 @@ const Query2 = () => {
 
                 year1 < year2 ? setMinValueX(year1) : setMinValueX(year2);
                 year1 > year2 ? setMaxValueX(year1) : setMaxValueX(year2);
-                if(year1 === year2)
-                {
-                    setMaxValueX(year1-1);
-                    setMinValueX(year1 + 1);
-                }
+                
                 setShowGraph(true);
             }
     }
