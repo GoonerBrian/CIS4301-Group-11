@@ -12,7 +12,7 @@ const Query4 = () => {
     const [areaValue, setAreaValue] = useState([]);
     const [area, setArea] = useState("");
     const [itemName, setItemName] = useState("");
-    const [showGraph, setShowGraph] = useState(false);
+    const [showGrpah, setShowGraph] = useState(true);
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(50);
     const queryId = 'query4';
@@ -39,32 +39,29 @@ const Query4 = () => {
             `http://localhost:5000/${queryId}`, 
             {params: {
                 area,
-                itemName,
-                yearRange,
-                value
+                itemName
             }});
 
-        // Stores all of Area's values in an array
         const areaVal = response.data.rows.map(row => {
             return row.at(0);
         });
         setAreaValue(areaVal);
 
-        const cropNam = response.data.row.map(row => {
+        const cropName = response.data.rows.map(row => {
             return row.at(1);
         })
-        setCropName(cropNam);
+        setCropName(cropName);
 
         // Stores all the years relevant to the query in an array
-        const queryYrs = response.data.rows.map(row => {
+        const qYears = response.data.rows.map(row => {
             return row.at(2);
         })
-        setYearRange(queryYrs);
+        setYearRange(qYears);
 
-        const val = response.data.rows.map(row => {
+        const value = response.data.rows.map(row => {
             return row.at(3);
         })
-        setValue(val);
+        setValue(value);
 
         // Find the lowest value
         const areaMin = Math.min(...value);
@@ -112,14 +109,14 @@ const Query4 = () => {
         </div>
         <br></br>
         <div>
-            {showGraph ? 
+            {showGrpah ? 
                 <Plot 
                     data={[
                         {
                             x: yearRange,
                             y: value,
-                            name: area,
-                            type: 'scatter',
+                            name: areaValue,
+                            type: 'bar',
                             mode: 'lines+markers',
                             marker: {color: 'orange'}
                         }
@@ -127,9 +124,9 @@ const Query4 = () => {
                     layout={ {
                                 width: 960, 
                                 height: 720, 
-                                xaxis: {range: [yearRange[0], yearRange[yearRange.length - 1]], title: "Years"},
-                                yaxis: {range: [minValue, maxValue], title: "tonnes"},
-                                title: `The tonnes of ${cropName} for ${areaValue} between ${yearRange[0]} and ${yearRange[yearRange.length - 1]}`
+                                xaxis: {range: [yearRange[0] - 1, yearRange[yearRange.length - 1] + 1], title: "Years"},
+                                yaxis: {range: [minValue - (minValue*0.05), maxValue + (maxValue*0.05)], title: "tonnes"},
+                                title: `The tonnes of ${cropName[0]} for ${areaValue[0]} between ${yearRange[0]} and ${yearRange[yearRange.length - 1]}`
                             } }
                 />
             : <br></br>}
