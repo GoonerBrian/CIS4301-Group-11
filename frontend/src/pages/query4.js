@@ -12,7 +12,7 @@ const Query4 = () => {
     const [areaValue, setAreaValue] = useState([]);
     const [area, setArea] = useState("");
     const [itemName, setItemName] = useState("");
-    const [showGrpah, setShowGraph] = useState(true);
+    const [showGrpah, setShowGraph] = useState(false);
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(50);
     const queryId = 'query4';
