@@ -133,7 +133,7 @@ app.get('/query1', (req,res) => {
             `with ranges(years, ecode, Icode) as
             (SELECT year, element_code, ITEM_CODE FROM "BRIAN.HOBLIN".crop_data WHERE year >= ${year1} AND year <= ${year2} 
             AND element_code = ${element_code} AND ITEM_NAME LIKE '%${itemName}%')
-            SELECT cd.area_name, cd.item_name, cd.value, pd.pop_total, cd.year
+            SELECT cd.area_name, cd.item_name, cd.value, (pd.pop_total*1000), cd.year
             FROM "BRIAN.HOBLIN".crop_data cd, "BRIAN.HOBLIN".pop_data pd
             WHERE cd.area_name = pd.location_name AND cd.year = pd.year
             AND cd.AREA_NAME = '${country}'
