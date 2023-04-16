@@ -41,9 +41,9 @@ const queries = [
     },
     {
         name: 'query5', // Must be the name of the endpoint in the backend
-        title: "This is a placeholder for query 5",
+        title: "Areas with the highest and lowest average yield of a specific crop",
         content: [
-            `Update this once the frontend work has been completed.`
+            `The user can select a crop to compare the 3 areas with the highest and lowest average yields.`
         ]
     }
 ]
