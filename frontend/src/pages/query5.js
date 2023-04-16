@@ -56,7 +56,7 @@ const Query5 = () => {
                         {
                             x: resultData.map(row => row[0]),
                             y: resultData.map(row => row[1]),
-                            name: 'Average Yield',
+                            name: 'Average  Yield',
                             type: 'bar',
                             marker: {color: 'orange'}
                         },

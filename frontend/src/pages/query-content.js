@@ -42,7 +42,7 @@ const queries = [
         name: 'query5', // Must be the name of the endpoint in the backend
         title: "Areas with the highest and lowest average yield of a specific crop",
         content: [
-            `The user can select a crop to compare the three areas with the highest and lowest average yields.`
+            `The user can select a crop to compare the 3 areas with the highest and lowest average yields.`
         ]
     }
 ]
