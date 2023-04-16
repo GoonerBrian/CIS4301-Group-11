@@ -23,6 +23,8 @@ const Query1 = () => {
     const [showGrpah, setShowGraph] = useState(false);
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(50);
+    const [minPopValue, setMinPopValue] = useState(0);
+    const [maxPopValue, setMaxPopValue] = useState(50);
     const queryId = 'query1';
 
     useEffect(() => {
@@ -103,6 +105,14 @@ const Query1 = () => {
         //Find the highest value
         const areaMax = Math.max(...value, population);
         setMaxValue(areaMax);
+
+        // Find the lowest value
+        const popMin = Math.min(...population);
+        setMinPopValue(popMin);
+
+        //Find the highest value
+        const popMax = Math.max(...population);
+        setMaxPopValue(popMax);
 
         setShowGraph(true);
     }
@@ -190,7 +200,9 @@ const Query1 = () => {
                             name: cropName[0] + ' Production',
                             type: 'scatter',
                             mode: 'lines+markers',
-                            marker: {color: 'orange'}
+                            marker: {color: 'orange'},
+                            xaxis: 'x1',
+                            yaxis: 'y1'
                         },
                         {
                             x: yearRange,
@@ -198,14 +210,20 @@ const Query1 = () => {
                             name: areaValue[0] + '\'s Population',
                             type: 'scatter',
                             mode: 'lines+markers',
-                            marker: {color: 'blue'}
+                            marker: {color: 'blue'},
+                            xaxis: 'x2',
+                            yaxis: 'y2'
                         }
                     ]}
                     layout={ {
+                                grid: {rows: 1, columns: 2, pattern: 'independent'}, 
+                                subplots:['x1y1', 'x2y2'],
                                 width: 960, 
                                 height: 720, 
                                 xaxis: {range: [yearRange[0] - 0.5, yearRange[yearRange.length - 1] + 0.5], title: "Years"},
                                 yaxis: {range: [minValue - (minValue*0.1), maxValue + (maxValue*0.1)], title: "tonnes"},
+                                xaxis2:{range: [yearRange[0] - 0.5, yearRange[yearRange.length - 1] + 0.5], title: "Years"},
+                                yaxis2:{range: [minPopValue - (minPopValue*0.1), maxPopValue + (maxPopValue*0.1)], title: "Population"},
                                 title: `The tonnes of ${cropName[0]} produced and population of ${areaValue[0]} between ${yearRange[0]} and ${yearRange[yearRange.length - 1]}`
                             } }
                 />
