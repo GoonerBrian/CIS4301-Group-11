@@ -11,9 +11,9 @@ const queries = [
     },
     {
         name: 'query1', // Must be the name of the endpoint in the backend
-        title: "This is a placeholder for query 1",
+        title: "The comparison of Population changes against production of selected Crop",
         content: [
-            `Update this once the frontend work has been completed.`
+            `The user can select a crop, country and year range to view the fluctuation in the population and how it correlates to the crop.`
         ]
     },
     {
@@ -34,9 +34,10 @@ const queries = [
     },
     {
         name: 'query4', // Must be the name of the endpoint in the backend
-        title: "This is a placeholder for query 4",
+        title: "The best year of production for a selected country and crop by displaying the surrounding years",
         content: [
-            `Update this once the frontend work has been completed.`
+            `The user can select a crop and a country to identify the year with the highest production of the crop and
+            observe the change of production in the surrounding 5 years.`
         ]
     },
     {
