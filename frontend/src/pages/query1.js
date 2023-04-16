@@ -187,7 +187,7 @@ const Query1 = () => {
                         {
                             x: yearRange,
                             y: value,
-                            name: cropName,
+                            name: cropName[0] + ' Production',
                             type: 'scatter',
                             mode: 'lines+markers',
                             marker: {color: 'orange'}
@@ -195,7 +195,7 @@ const Query1 = () => {
                         {
                             x: yearRange,
                             y: population,
-                            name: areaValue,
+                            name: areaValue[0] + '\'s Population',
                             type: 'scatter',
                             mode: 'lines+markers',
                             marker: {color: 'blue'}
