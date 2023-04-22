@@ -14,7 +14,7 @@ const QueriesList = ({ queries }) => {
         {queries.map(query => (
             <Link key={query.name} className="query-list-item" to={`/queries-page/${query.name}`}>
                 <h3>{query.title}</h3>
-                <p>{query.content[0].substring(0,150)}...</p>
+                <p>{query.content[0]}...</p>
             </Link>
         ))}
         </>

@@ -46,6 +46,14 @@ const queries = [
         content: [
             `The user can select a crop to compare the 3 areas with the highest and lowest average yields.`
         ]
+    },
+    {
+        name: 'query6', // Must be the name of the endpoint in the backend
+        title: "A comparison of annual crop yields vs population growth for a country/area",
+        content: [
+            `This query allows the user to view the total crop yields of all crops a country/area has produced 
+            and compare that to their population growth over the same time period.`
+        ]
     }
 ]
 
