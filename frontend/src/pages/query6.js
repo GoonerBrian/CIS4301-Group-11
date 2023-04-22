@@ -11,7 +11,7 @@ const Query6 = () => {
     const [areaName, setAreaName] = useState("");
     const [showGrpah, setShowGraph] = useState(false);
     const queryId = 'query6';
-    const queryDesc = QueryContent[6].content[0];
+    const queryDesc = QueryContent[6].content;
 
     useEffect(() => {
         const loadFormOptions = async () => {

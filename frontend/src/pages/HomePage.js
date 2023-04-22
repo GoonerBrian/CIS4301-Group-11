@@ -7,7 +7,6 @@ const HomePage = () => {
             const response = await axios.get('http://localhost:5000/total-tuples');
             const responseValue = response.data.rows.at(0).at(0) + response.data.rows.at(0).at(1);
             
-            //console.log(responseValue);
             setTotalTuples({tups : responseValue});
         }
         loadTuples();
