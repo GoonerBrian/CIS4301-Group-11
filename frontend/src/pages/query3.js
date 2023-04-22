@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
+import QueryContent from './query-content.js';
 
 const Query3 = () => {
     const [cropAreaNames, setCropAreaNames] = useState([]);
@@ -18,6 +19,7 @@ const Query3 = () => {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(50);
     const queryId = 'query3';
+    const queryDesc = QueryContent[3].content;
 
     useEffect(() => {
         const loadFormOptions = async () => {
@@ -86,6 +88,12 @@ const Query3 = () => {
 
     return (
         <>
+        <div id="query-input-form">
+            <h1>Query Description</h1>
+            <p>
+                {queryDesc}
+            </p>
+        </div>
         <div id="query-input-form">
             <h3>Enter your query parameters</h3>
             <br></br>

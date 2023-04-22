@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
+import QueryContent from './query-content.js';
 
 const Query1 = () => {
     const [cropAreaNames, setCropAreaNames] = useState([]);
@@ -26,6 +27,7 @@ const Query1 = () => {
     const [minPopValue, setMinPopValue] = useState(0);
     const [maxPopValue, setMaxPopValue] = useState(50);
     const queryId = 'query1';
+    const queryDesc = QueryContent[1].content;
 
     useEffect(() => {
         const loadFormOptions = async () => {
@@ -66,9 +68,6 @@ const Query1 = () => {
                 eCode,
                 country
             }});
-
-        //cd.area_name, cd.item_name, cd.value, pd.pop_total, cd.year
-        console.log(response.data.rows);
 
         const areaVal = response.data.rows.map(row => {
             return row.at(0);
@@ -119,6 +118,12 @@ const Query1 = () => {
 
     return (
         <>
+        <div id="query-input-form">
+            <h1>Query Description</h1>
+            <p>
+                {queryDesc}
+            </p>
+        </div>
         <div id="query-input-form">
             <h3>Enter your query parameters</h3>
             <br></br>

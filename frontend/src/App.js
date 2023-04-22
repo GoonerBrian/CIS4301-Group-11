@@ -12,6 +12,7 @@ import Query2 from './pages/query2';
 import Query3 from './pages/query3';
 import Query4 from './pages/query4';
 import Query5 from './pages/query5';
+import Query6 from './pages/query6';
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
           <Route path='/queries-page/query3' element={<Query3 />} />
           <Route path='/queries-page/query4' element={<Query4 />} />
           <Route path='/queries-page/query5' element={<Query5 />} />
+          <Route path='/queries-page/query6' element={<Query6 />} />
           <Route path='/create-account' element={<CreatAccountPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>

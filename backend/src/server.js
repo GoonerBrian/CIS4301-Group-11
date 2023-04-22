@@ -422,6 +422,51 @@ app.get('/query5', (req, res) => {
         res.send(err);
       });
   });
+
+  app.get('/query6', (req,res) => {
+    async function fetchQuery6() {
+        try{
+            const connection = await oracledb.getConnection();
+            
+            oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+            const areaName = req.query.areaName;
+
+            const query = 
+            `select pd.year year, pd.pop_total*1000 pop_total, cd.prod_total prod_total
+            from "BRIAN.HOBLIN".pop_data pd
+            inner join (
+                select sum(value) prod_total, year from "BRIAN.HOBLIN".crop_data
+                where area_name = '${areaName}'
+                and unit = 'tonnes'
+                group by year
+                order by year
+            ) cd
+            on pd.year = cd.year
+            where pd.location_name = '${areaName}'`;
+
+            const result = await connection.execute(query);
+
+            try {
+                await connection.close();
+            }
+            catch (err) {
+                console.log("Encountered an error closing a connection in the connection pool.");
+            }
+            return result;
+            
+        } catch (error) {
+            return error;
+        }
+
+    }
+    fetchQuery6().then(dbRes => {
+        res.send(dbRes);
+    })
+    .catch(err => {
+        res.send(err);
+    })
+
+})
   
   // Helper Queries
 
@@ -549,6 +594,42 @@ app.get('/query5', (req, res) => {
       }
     }
     cropItems()
+      .then((dbRes) => {
+        res.send(dbRes);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
+
+  app.get('/shared-area-names', (req, res) => {
+    async function sharedAreaNames() {
+      try {
+        const connection = await oracledb.getConnection();
+  
+        oracledb.outFormat = oracledb.OUT_FORMAT_ARRAY;
+  
+        // Add the SQL query as a variable
+        const query = 
+        `select location_name from "BRIAN.HOBLIN".pop_data
+        minus
+        select area_name from "BRIAN.HOBLIN".crop_data`;
+  
+        const result = await connection.execute(query);
+  
+        try {
+          await connection.close();
+        } catch (err) {
+          console.log(
+            "Encountered an error closing a connection in the connection pool."
+          );
+        }
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    sharedAreaNames()
       .then((dbRes) => {
         res.send(dbRes);
       })

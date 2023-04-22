@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
+import QueryContent from './query-content.js';
 
 const Query5 = () => {
     const [itemName, setItemName] = useState("");
     const [cropItemNames, setCropItemNames] = useState([]);
     const [resultData, setResultData] = useState([]);
     const [showGraph, setShowGraph] = useState(false);
+    const queryDesc = QueryContent[5].content;
 
     useEffect(() => {
         const loadFormOptions = async () => {
@@ -30,6 +32,12 @@ const Query5 = () => {
 
     return (
         <>
+        <div id="query-input-form">
+            <h1>Query Description</h1>
+            <p>
+                {queryDesc}
+            </p>
+        </div>
         <div id="query-input-form">
             <h3>Enter your query parameters</h3>
             <br></br>

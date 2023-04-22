@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
+import QueryContent from './query-content.js';
 
 const Query2 = () => {
     
@@ -26,6 +27,7 @@ const Query2 = () => {
     const [minValueX, setMinValueX] = useState(0);
     const [maxValueX, setMaxValueX] = useState(50);
     const queryId = 'query2';
+    const queryDesc = QueryContent[2].content;
 
     useEffect(() => {
         const loadFormOptions = async () => {
@@ -61,7 +63,6 @@ const Query2 = () => {
                 itemName,
                 eCode
             }});
-            //console.log(response.data);
             let index = 1;
             const areaVals = new Array(3);
             const years = new Array(3);
@@ -97,7 +98,6 @@ const Query2 = () => {
                     }
                     else
                     {
-                        //console.log(arrIndex);
                         if(arrIndex === 0)
                         {
                             
@@ -146,6 +146,12 @@ const Query2 = () => {
     
     return (
         <>
+        <div id="query-input-form">
+            <h1>Query Description</h1>
+            <p>
+                {queryDesc}
+            </p>
+        </div>
         <div id="query-input-form">
             <h3>Enter your query parameters</h3>
             <br></br>

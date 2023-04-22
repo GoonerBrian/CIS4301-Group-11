@@ -7,7 +7,6 @@ const HomePage = () => {
             const response = await axios.get('http://localhost:5000/total-tuples');
             const responseValue = response.data.rows.at(0).at(0) + response.data.rows.at(0).at(1);
             
-            //console.log(responseValue);
             setTotalTuples({tups : responseValue});
         }
         loadTuples();
@@ -25,7 +24,7 @@ const HomePage = () => {
         </p>
         <h1>About our data set</h1>
         <p>
-            Our data set was found on <a href='https://www.kaggle.com/datasets/raghavramasamy/crop-statistics-fao-all-countries'>kaggle.com </a> 
+            Our data set was found on <a target="_blank" href='https://www.kaggle.com/datasets/raghavramasamy/crop-statistics-fao-all-countries' rel="noreferrer">kaggle.com </a> 
             and it consists of agricultural and population data for all "countries of the world and geographical aggregates according to the 
             United Nations M-49 list". The data set spans from 1962 to 2018 and is formatted annually.
         </p>
