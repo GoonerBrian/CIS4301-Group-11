@@ -102,7 +102,7 @@ const Query6 = () => {
                         height: 720,
                         xaxis: { title: "Years" },
                         yaxis: { title: "tonnes" },
-                        title: "Test"
+                        title: `The tonnes of all crops produced and population of ${areaName} between ${years[0]} and ${years[years.length - 1]}`
                     } }
                 />
             : <br></br>

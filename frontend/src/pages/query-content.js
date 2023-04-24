@@ -11,14 +11,14 @@ const queries = [
     },
     {
         name: 'query1', // Must be the name of the endpoint in the backend
-        title: "The comparison of Population changes against production of selected Crop",
+        title: "Query 1: The comparison of Population changes against production of selected Crop",
         content: [
             `The user can select a crop, country and year range to view the fluctuation in the population and how it correlates to the crop.`
         ]
     },
     {
         name: 'query2', // Must be the name of the endpoint in the backend
-        title: "The 3 countries that produce the most yield type, for a crop, over a time interval",
+        title: "Query 2: The 3 countries that produce the most yield type, for a crop, over a time interval",
         content: [
             `The user can select an item type and a collection method to view the top three producing countries for that item, 
             and see how they changed over a selected time interval.`
@@ -26,7 +26,7 @@ const queries = [
     },
     {
         name: 'query3', // Must be the name of the endpoint in the backend
-        title: "The crop yield per hectare for 2 countries over a time interval",
+        title: "Query 3: The crop yield per hectare for 2 countries over a time interval",
         content: [
             `The user can select 2 countries and a crop to see how their respective
             yield per hectare has changed over time.`
@@ -34,7 +34,7 @@ const queries = [
     },
     {
         name: 'query4', // Must be the name of the endpoint in the backend
-        title: "The best year of production for a selected country and crop by displaying the surrounding years",
+        title: "Query 4: The best year of production for a selected country and crop by displaying the surrounding years",
         content: [
             `The user can select a crop and a country to identify the year with the highest production of the crop and
             observe the change of production in the surrounding 5 years.`
@@ -42,14 +42,14 @@ const queries = [
     },
     {
         name: 'query5', // Must be the name of the endpoint in the backend
-        title: "Areas with the highest and lowest average yield of a specific crop",
+        title: "Query 5: Areas with the highest and lowest average yield of a specific crop",
         content: [
             `The user can select a crop to compare the 3 areas with the highest and lowest average yields.`
         ]
     },
     {
         name: 'query6', // Must be the name of the endpoint in the backend
-        title: "A comparison of annual crop yields vs population growth for a country/area",
+        title: "Query 6: A comparison of annual crop yields vs population growth for a country/area",
         content: [
             `This query allows the user to view the total crop yields of all crops a country/area has produced 
             and compare that to their population growth over the same time period.`
