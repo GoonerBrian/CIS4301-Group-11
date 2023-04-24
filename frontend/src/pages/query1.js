@@ -98,11 +98,11 @@ const Query1 = () => {
         
 
         // Find the lowest value
-        const areaMin = Math.min(...value, population);
+        const areaMin = Math.min(...value);
         setMinValue(areaMin);
 
         //Find the highest value
-        const areaMax = Math.max(...value, population);
+        const areaMax = Math.max(...value);
         setMaxValue(areaMax);
 
         // Find the lowest value
